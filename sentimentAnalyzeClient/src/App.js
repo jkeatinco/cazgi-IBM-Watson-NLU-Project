@@ -5,7 +5,11 @@ import React from 'react';
 import axios from 'axios';
 
 class App extends React.Component {
-  state = {innercomp:<textarea rows="4" cols="50" id="textinput"/>,
+  state = {innercomp:
+   <div className="form-group">
+    <label htmlFor="textinput">Put some text below you wish to analyze.</label>
+    <textarea className="form-control" id="textinput" rows="3"></textarea>
+  </div>,
             mode: "text",
           sentimentOutput:[],
           sentiment:true
@@ -14,7 +18,12 @@ class App extends React.Component {
   renderTextArea = ()=>{
     document.getElementById("textinput").value = "";
     if(this.state.mode === "url") {
-      this.setState({innercomp:<textarea rows="4" cols="50" id="textinput"/>,
+      this.setState({innercomp:
+      <div className="form-group">
+    <label htmlFor="textinput">Put some text below you wish to analyze.</label>
+    <textarea className="form-control" id="textinput" rows="3"></textarea>
+  </div>,
+//   <textarea rows="4" cols="50" id="textinput"/>,
       mode: "text",
       sentimentOutput:[],
       sentiment:true
@@ -25,7 +34,11 @@ class App extends React.Component {
   renderTextBox = ()=>{
     document.getElementById("textinput").value = "";
     if(this.state.mode === "text") {
-      this.setState({innercomp:<textarea rows="1" cols="50" id="textinput"/>,
+      this.setState({innercomp:
+      <div className="form-group">
+    <label htmlFor="textinput">Copy and Paste a Website URL below you wish to analyze.</label>
+    <textarea className="form-control" id="textinput" rows="3"></textarea>
+  </div>,
       mode: "url",
       sentimentOutput:[],
       sentiment:true
@@ -80,17 +93,28 @@ class App extends React.Component {
 
   render() {
     return (  
+    <div className="container">
+        <div className="row justify-content-center">
+            
+            <div className="col">
+            <h2 className="text-center">AI Text Investigator 🕵️</h2>
+            <p className="text-muted text-center">Analyze the sentiment and emotion of text or a webpage</p>
+            </div>
+           
+        </div>
+        
       <div className="App">
-      <button className="btn btn-info" onClick={this.renderTextArea}>Text</button>
-        <button className="btn btn-dark"  onClick={this.renderTextBox}>URL</button>
+        <button className={this.state.mode==="text" ? 'btn btn-primary btn-lg m-3': 'btn btn-outline-primary btn-lg m-3'} onClick={this.renderTextArea}>Write Text 📝</button>
+        <button className={this.state.mode==="url" ? 'btn btn-primary btn-lg m-3': 'btn btn-outline-primary btn-lg m-3'}  onClick={this.renderTextBox}>Paste Website Link 🔗</button>
         <br/><br/>
         {this.state.innercomp}
         <br/>
-        <button className="btn-primary" onClick={this.sendForSentimentAnalysis}>Analyze Sentiment</button>
-        <button className="btn-primary" onClick={this.sendForEmotionAnalysis}>Analyze Emotion</button>
+        <button className="btn btn-primary btn-lg m-3" onClick={this.sendForSentimentAnalysis}>🔍 Analyze Sentiment</button>
+        <button className="btn btn-primary btn-lg m-3" onClick={this.sendForEmotionAnalysis}>Analyze Emotion 🔎</button>
         <br/>
             {this.state.sentimentOutput}
       </div>
+    </div>
     );
     }
 }
