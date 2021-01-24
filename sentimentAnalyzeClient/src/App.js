@@ -7,7 +7,7 @@ import axios from 'axios';
 class App extends React.Component {
   state = {innercomp:
    <div className="form-group">
-    <label htmlFor="textinput">Put some text below you wish to analyze.</label>
+    <label htmlFor="textinput">Pour out your heart ❤️ with text and let the AI 🕵️ investigate to figure out the sentiment or emotion.</label>
     <textarea className="form-control" id="textinput" rows="3"></textarea>
   </div>,
             mode: "text",
@@ -20,7 +20,7 @@ class App extends React.Component {
     if(this.state.mode === "url") {
       this.setState({innercomp:
       <div className="form-group">
-    <label htmlFor="textinput">Put some text below you wish to analyze.</label>
+    <label htmlFor="textinput">Pour out your heart ❤️ with text and let the AI 🕵️ investigate to figure out the sentiment or emotion.</label>
     <textarea className="form-control" id="textinput" rows="3"></textarea>
   </div>,
 //   <textarea rows="4" cols="50" id="textinput"/>,
@@ -36,7 +36,7 @@ class App extends React.Component {
     if(this.state.mode === "text") {
       this.setState({innercomp:
       <div className="form-group">
-    <label htmlFor="textinput">Copy and Paste a Website URL below you wish to analyze.</label>
+    <label htmlFor="textinput">Not sure how much love ❤️ a website article was written with? Paste the URL below and let the AI 🕵️ investigate to figure out the sentiment or emotion.</label>
     <textarea className="form-control" id="textinput" rows="3"></textarea>
   </div>,
       mode: "url",
@@ -62,13 +62,31 @@ class App extends React.Component {
       //Include code here to check the sentiment and fomrat the data accordingly
 
       this.setState({sentimentOutput:response.data});
-      let output = response.data;
+      let output = response.data; 
       if(response.data === "positive") {
-        output = <div style={{color:"green",fontSize:20}}>The sentiment is {response.data}.</div>
+        output = 
+        <div className="row justify-content-center mt-3 mb-5">
+            <div className="col">
+                <h3>🕵️ Sentiment Analysis</h3><br/>
+                <div style={{color:"#28a745"}}>😊 Sounds pretty {response.data} to me!</div>
+            </div>
+        </div>    
       } else if (response.data === "negative"){
-        output = <div style={{color:"red",fontSize:20}}>The sentiment is {response.data}.</div>
+        output = 
+        <div className="row justify-content-center mt-3 mb-5">
+            <div className="col">
+                <h3>🕵️ Sentiment Analysis</h3><br/>
+                <div style={{color:"#dc3545"}}>Lighten up buttercup 🙁 {response.data} thoughts don't help anyone.</div>
+            </div>
+        </div>
       } else {
-        output = <div style={{color:"yellow",fontSize:20}}>The sentiment is {response.data}.</div>
+        output = 
+        <div className="row justify-content-center mt-3 mb-5">
+            <div className="col">
+                <h3>🕵️ Sentiment Analysis</h3><br/>
+                <div style={{color:"#ffc107"}}>Well this is pretty 😐 {response.data} and plain.</div>
+            </div>
+        </div>
       }
       this.setState({sentimentOutput:output});
     });
@@ -93,12 +111,12 @@ class App extends React.Component {
 
   render() {
     return (  
-    <div className="container">
+    <div className="container mt-5">
         <div className="row justify-content-center">
             
             <div className="col">
             <h2 className="text-center">AI Text Investigator 🕵️</h2>
-            <p className="text-muted text-center">Analyze the sentiment and emotion of text or a webpage</p>
+            <p className="text-muted text-center">Use this AI to help analyze the sentiment and emotion of text or a webpage</p>
             </div>
            
         </div>
@@ -109,11 +127,18 @@ class App extends React.Component {
         <br/><br/>
         {this.state.innercomp}
         <br/>
-        <button className="btn btn-primary btn-lg m-3" onClick={this.sendForSentimentAnalysis}>🔍 Analyze Sentiment</button>
-        <button className="btn btn-primary btn-lg m-3" onClick={this.sendForEmotionAnalysis}>Analyze Emotion 🔎</button>
+        <button className='btn btn-primary btn-lg m-3' onClick={this.sendForSentimentAnalysis}>🔍 Analyze Sentiment <br /> 😊 😐 🙁</button>
+        <button className='btn btn-primary btn-lg m-3' onClick={this.sendForEmotionAnalysis}>Analyze Emotion 🔎 <br /> 😥 😂 😨 🤢 😡</button>
         <br/>
             {this.state.sentimentOutput}
       </div>
+      <div className="row justify-content-center">
+            
+            <div className="col">
+            <p className="text-muted text-center">Made with ❤️ by <a href="https://twitter.com/jkeatin" target="_blank" rel="noreferrer">@jkeatin</a> | Powered by <a href="https://www.ibm.com/watson" target="_blank" rel="noreferrer">IBM Watson</a> </p>
+            </div>
+           
+        </div>
     </div>
     );
     }
